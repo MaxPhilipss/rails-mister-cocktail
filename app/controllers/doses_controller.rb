@@ -8,7 +8,10 @@ class DosesController < ApplicationController
 
   def create
     @dose = @cocktail.doses.build(dose_params)
-    @dose.save
+    if @dose.save
+      redirect_to cocktail_path(@cocktail)
+    else
+      render "cocktails#show"
   end
 
   def destroy
@@ -19,7 +22,7 @@ class DosesController < ApplicationController
   private
 
   def dose_param
-    params.require(:dose).permit(:description, :cocktail)
+    params.require(:dose).permit(:description, :cocktail_id)
   end
 
   def set_cocktail

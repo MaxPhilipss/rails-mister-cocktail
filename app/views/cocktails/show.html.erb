@@ -1,0 +1,24 @@
+<div class="banner" style="background-image: linear-gradient(-225deg, rgba(0,101,168,0.6) 0%, rgba(0,36,61,0.6) 50%), url('http://www.unsplash.it/900x600');">
+  <div class="banner-content">
+    <h1><%= @cocktail.name %></h1>
+    <p>list of ingredients</p>
+    <ul>
+      <% @cocktail.doses.each do |dose|%>
+      <li> <%= dose.description %> of <%= dose.ingredient.name %> </li>
+      <% end %>
+    </ul>
+    <a class="btn btn-primary btn-lg">GET IT</a>
+  </div>
+</div>
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-4">
+      <%= simple_form_for [@cocktail, @dose] do |f| %>
+        <%= f.input :description, placeholder: "2 teaspoons" %>
+        <%= f.input :ingredient_id, collectoon: Ingredient.all.map {|i| i.name.capitalize} %>
+      <% end%>
+    </div>
+  </div>
+</div>
